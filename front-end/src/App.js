@@ -9,14 +9,13 @@ export default function App() {
   return (
     <div className="App">
       <nav>
-      <h1>New User Form</h1>
       <div className='nav-link'>
-      <Link to="/src/Components/Signup">Home</Link>
-      <Link to="/src/Components/Signin">SignIn</Link>
+      <Link to="/src/Components/Signup" style={{paddingLeft: 13, textDecoration: 'none', color: 'black'}}>Home</Link>
+      <Link to="/src/Components/Signin" style={{paddingLeft: 13, textDecoration: 'none', color:'black'}}>Signin</Link>
       </div>
       </nav> 
-         <Route path="/src/Components/Signup" component={Signup} />
-        <Route path="/src/Components/SignIn" component={Signin} />
+         <Route exact path="/src/Components/Signup" component={Signup} />
+        <Route exact path="/src/Components/SignIn" component={Signin} />
            </div>
       
   );
