@@ -18,6 +18,16 @@ const signUpReducer = (state = initialState, action) => {
                 signUpSuccess: true,
                 signUpLoading: false
             }
-        case
+        case 'USER_ALREADY_EXIST':
+            return {
+                ...state,
+                signUpSuccess: false,
+                userExistError: true,
+                userExistErrorMessage: state.userExistErrorMessage
+            }
+            default: 
+            return state
     }
 }
+
+export default signUpReducer

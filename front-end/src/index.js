@@ -13,6 +13,9 @@ import logger from 'redux-logger';
 //React Router
 import { BrowserRouter as Router } from 'react-router-dom';
 
+//reducer
+import rootReducer from './reducers'
+
 const store = createStore(rootReducer, applyMiddleware(thunk, logger));
 
 ReactDOM.render(
