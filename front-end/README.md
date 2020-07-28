@@ -1,3 +1,8 @@
+///must install these to run the material UI:
+npm install @material-ui/core
+npm install @material-ui/icons
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
