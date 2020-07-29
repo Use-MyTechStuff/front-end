@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import theme from "./theme/theme";
-import { createBrowserHistory } from "history";
+import { History } from './utils/History';
 
 //Redux stuff
 import { Provider } from 'react-redux';
@@ -22,7 +22,7 @@ import { ThemeProvider } from "@material-ui/styles";
 
 
 const store = createStore(rootReducer, applyMiddleware(thunk, logger));
-const History = createBrowserHistory();
+
 
 ReactDOM.render(
   <Provider store={store}>

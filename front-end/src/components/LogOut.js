@@ -2,15 +2,15 @@ import React from "react";
 import { Button } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
-import logOutAction from '../store/actions/logOutAction'
+import {logout} from '../actions'
 
 const LogOut = (props) => {
-  const history = useHistory();
+  const {push} = useHistory();
 
   const handleClick = () => {
-    props.logOutAction()
+    props.logout()
     localStorage.clear();
-    history.push("/");
+    push("/");
   };
 
   return (

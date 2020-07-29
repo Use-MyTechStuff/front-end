@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useParams, useHistory } from "react-router-dom";
 import { logout } from "../actions/";
+
 
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
@@ -30,8 +31,15 @@ const useStyles = makeStyles(theme => ({
       marginRight: theme.spacing(2)
     },
     title: {
-      
+      marginLeft: '15%',
+      fontFamily: ('Gaegu', 'cursive'),
+      fontSize: '40'
+    },
+    avatar: {
+      flexGrow : 1,
+      marginLeft: '50%'
     }
+
   }));
 
 const NavBar = ({ logout, auth }) => {
@@ -39,6 +47,7 @@ const NavBar = ({ logout, auth }) => {
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
     const { user_id } = useParams();
+    const {push} = useHistory();
   
     const handleMenu = event => {
       setAnchorEl(event.currentTarget);
@@ -51,6 +60,7 @@ const NavBar = ({ logout, auth }) => {
     const handleLogout = () => {
       setAnchorEl(null);
       logout();
+      push('/');
     };
   
     return (
@@ -60,8 +70,8 @@ const NavBar = ({ logout, auth }) => {
             <Typography variant="h6" className={classes.title}>
               Use My Tech
             </Typography>
-            {auth && (
-              <div>
+            
+              <div className={classes.avatar}>
                 <IconButton
                   aria-label="account of current user"
                   aria-controls="menu-appbar"
@@ -95,14 +105,14 @@ const NavBar = ({ logout, auth }) => {
                     </NavLink>
                   </MenuItem>
                   <MenuItem onClick={handleClose}>
-                    <NavLink className={classes.menu} to="/all-tech">
+                    <NavLink className={classes.menu} to="/browse-rentals">
                       Browse Rentals 
                     </NavLink>
                   </MenuItem>
                   <MenuItem onClick={handleLogout}>Logout</MenuItem>
                 </Menu>
               </div>
-            )}
+            
           </Toolbar>
         </AppBar>
       </div>

@@ -11,10 +11,13 @@ import Typography from "@material-ui/core/Typography";
 // import { makeStyles } from "@material-ui/core/styles";
 import { Paper, FormHelperText } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import * as yup from "yup";
 import { connect } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
+import { axiosWithAuth } from "../utils/axiosWithAuth";
+
+
 
 
 //Actions
@@ -48,6 +51,7 @@ const logSchema = yup.object().shape({
 
 const Login = (props) => {
   const classes = useStyles();
+  const {push} = useHistory();
 
   const [credential, setCredential] = useState({
     username: "",
@@ -106,7 +110,20 @@ const Login = (props) => {
 
   const Submit = (event) => {
     event.preventDefault();
-    props.loginData(credential);
+    //props.loginData(credential);
+    axiosWithAuth()
+    .post("/api/users/login", credential)
+    .then(res => {
+      console.log(res);
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("user_id", res.data.user.id);
+      //dispatch({ type: TOKEN_AQUIRED });
+      //dispatch({ type: USER, payload: res.data });
+      push('/browse-rentals');
+    })
+    .catch(err => {
+      console.error("You are getting an error of", err.response);
+    });
   };
 
   return (

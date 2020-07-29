@@ -41,7 +41,7 @@ const MainPage = ({ addNewItem, getUser }) => {
     condition: "",
     location: ""
   });
-  const user_id = window.localStorage.getItem("user_id");
+  const user_id = localStorage.getItem("user_id");
 
   useEffect(() => {
     getUser(user_id);
@@ -67,12 +67,12 @@ const MainPage = ({ addNewItem, getUser }) => {
 
   return (
     <div>
-      <h1>Welcome to Use My Tech</h1>
+      <h1 color="secondary">Welcome to Use My Tech</h1>
       <h3>Below you can add your tech to rent out!</h3>
       {addItem ? (
         <></>
       ) : (
-          <Button variant="contained" color="primary" onClick={() => Editing()}>
+          <Button variant="contained" color="secondary" onClick={() => Editing()}>
             Add Item
           </Button>
         )}
@@ -132,7 +132,7 @@ const MainPage = ({ addNewItem, getUser }) => {
             <ColorButton
               className={classes.margin}
               variant="contained"
-              color="primary"
+              color="secondary"
               type="submit"
             >
               Submit

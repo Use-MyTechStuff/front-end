@@ -2,7 +2,7 @@ import React, { useState } from "react";
 //connect function form redux
 import { connect } from "react-redux";
 //Link from react router
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useHistory } from "react-router-dom";
 // all material UI style dependcies and images
 import Login from './Login'
 import { registerUser } from "../actions/"
@@ -17,6 +17,9 @@ import {
   FormHelperText,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import { axiosWithAuth } from "../utils/axiosWithAuth";
+
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -45,6 +48,7 @@ const useStyles = makeStyles((theme) => ({
 const SignUp = (props) => {
   //Allows to uses the styling from component styles directory
   const classes = useStyles();
+  const {push} = useHistory();
 
   const [newUser, setNewUser] = useState({
     username: "",
@@ -68,7 +72,19 @@ const handleChange = e => {
   const handleSubmit = (event) => {
     event.preventDefault()
         console.log(newUser);
-        props.registerUser(newUser);
+        //props.registerUser(newUser);
+
+    axiosWithAuth()
+    .post("/api/users/register", newUser)
+    .then(res => {
+      console.log(res);
+      // dispatch({ type: TOKEN_AQUIRED });
+      // dispatch({ type: USER, payload: res.data });
+      push('/');
+    })
+    .catch(err => {
+      console.error("You are getting an error of", err.response);
+    });
       };
 
 
