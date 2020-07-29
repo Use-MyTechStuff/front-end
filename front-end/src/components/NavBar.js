@@ -91,12 +91,12 @@ const NavBar = ({ logout, auth }) => {
                       className={classes.menu}
                       to={`/user-page/${user_id}`}
                     >
-                      Profile
+                      Dashboard
                     </NavLink>
                   </MenuItem>
                   <MenuItem onClick={handleClose}>
                     <NavLink className={classes.menu} to="/all-tech">
-                      All Tech
+                      Browse Rentals 
                     </NavLink>
                   </MenuItem>
                   <MenuItem onClick={handleLogout}>Logout</MenuItem>
