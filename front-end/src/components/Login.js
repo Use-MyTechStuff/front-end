@@ -16,14 +16,10 @@ import * as yup from "yup";
 import { connect } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 
-//components
-// import LogInCampaignSuccess from "./LogInCampaignSuccess";
 
 //Actions
 import { loginData } from "../actions";
 
-//styles
-//import { useStyles } from "../theme/componentStyles/loginStyles";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
