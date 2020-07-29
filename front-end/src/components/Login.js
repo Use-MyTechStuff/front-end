@@ -14,7 +14,7 @@ import Container from "@material-ui/core/Container";
 import { Link } from "react-router-dom";
 import * as yup from "yup";
 import { connect } from "react-redux";
-
+import { makeStyles } from "@material-ui/core/styles";
 
 //components
 // import LogInCampaignSuccess from "./LogInCampaignSuccess";
@@ -23,30 +23,30 @@ import { connect } from "react-redux";
 import { loginData } from "../actions";
 
 //styles
-import { useStyles } from "../theme/componentStyles/loginStyles";
+//import { useStyles } from "../theme/componentStyles/loginStyles";
 
-// const useStyles = makeStyles((theme) => ({
-//   paper: {
-//     marginTop: theme.spacing(8),
-//     display: "flex",
-//     flexDirection: "column",
-//     alignItems: "center",
-//   },
-//   avatar: {
-//     margin: theme.spacing(1),
-//     backgroundColor: theme.palette.secondary.main,
-//   },
-//   form: {
-//     width: "100%", // Fix IE 11 issue.
-//     marginTop: theme.spacing(1),
-//   },
-//   submit: {
-//     margin: theme.spacing(3, 0, 2),
-//   },
-// }));
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    marginTop: theme.spacing(8),
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: "100%", // Fix IE 11 issue.
+    marginTop: theme.spacing(1),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+}));
 
 const logSchema = yup.object().shape({
-  username: yup.string().required("you need to input your name"),
+  username: yup.string().required("you need to input your username"),
   password: yup.string().required("Password is required"),
 });
 
@@ -115,17 +115,7 @@ const Login = (props) => {
 
   return (
     <>
-      <Grid item>
-        <Grid
-          container
-          alignItems="center"
-          justify="center"
-          style={{ height: "30em" }}
-        >
-          {/* This is the image  */}
-          <div className={classes.mainImage} />
-        </Grid>
-      </Grid>
+      
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div>

@@ -1,4 +1,4 @@
-import {SET_TOKEN, TOKEN_AQUIRED, USER, GET_USER, ALL_STUFF, SET_ERROR, GET_STUFF, USER_STUFF, USER_LOGOUT} from '../actions/techAction';
+import {SET_TOKEN, TOKEN_AQUIRED, USER, GET_USER, ALL_STUFF, SET_ERROR, GET_STUFF, USER_STUFF, USER_LOGOUT} from '../actions/';
 
 const initialState ={
     isLoading: false,

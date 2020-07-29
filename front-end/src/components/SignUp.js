@@ -3,8 +3,9 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 //Link from react router
 import { Link as RouterLink } from "react-router-dom";
-import { useHistory } from "react-router-dom"
 // all material UI style dependcies and images
+import Login from './Login'
+import { registerUser } from "../actions/"
 import {
   Typography,
   Paper,
@@ -15,7 +16,28 @@ import {
   CircularProgress,
   FormHelperText,
 } from "@material-ui/core";
-import { useStyles } from '../theme/componentStyles/loginStyles'
+import { makeStyles } from "@material-ui/core/styles";
+
+
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: "100%", // Fix IE 11 issue.
+    
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+}));
 
 //components
 // import { LogIn_CampaignSuccess } from './LogIn_CampaignSuccess'
@@ -23,9 +45,8 @@ import { useStyles } from '../theme/componentStyles/loginStyles'
 
 //Actions 
 
-import Login from './Login'
-import { registerUser } from "../actions/"
-import Login from "./Login";
+
+
 
 const SignUp = (props) => {
   //Allows to uses the styling from component styles directory
@@ -40,11 +61,10 @@ const SignUp = (props) => {
 
   console.log("%c SignUP", "color:red", newUser)
 
-  //lets us use history api from react-router
-const history = useHistory();
+
   
 //Form Handle Change
-const HandleChange = e => {
+const handleChange = e => {
     setNewUser({
       ...newUser,
       [e.target.name]: e.target.value
@@ -61,23 +81,8 @@ const HandleChange = e => {
   //This is the login form made with Material UI
   return (
     <>
-    <Grid item style={{ margin: "auto" }}>
-        <Grid
-          container
-          alignItems="center"
-          justify="center"
-          style={{ height: "30em" }}
-        >
-          {/* This is the image  */}
-          <div className={classes.mainImage} />
-        </Grid>
-      </Grid>
-      {
-        props.signUpSuccess
-        ? <>      
-        <Login />
-      </>
-        :
+    
+      
       <div style={{ padding: "15px", margin: "3em auto", maxWidth: "400px" }}>
         {/* This is the form  */}
         <form onSubmit={handleSubmit}>
@@ -161,7 +166,7 @@ const HandleChange = e => {
                   <Link
                     color="secondary"
                     component={RouterLink}
-                    to="Login"
+                    to='/'
                   >
                     {" "}
                     Click Here{" "}
@@ -173,7 +178,7 @@ const HandleChange = e => {
           </Paper>
         </form>
       </div>
-      }
+      
       
     </>
   );

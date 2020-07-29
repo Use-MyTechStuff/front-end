@@ -1,5 +1,7 @@
-import { axiosWithAuth } from "../../utils/axiosWithAuth";
-import history from "../../utils/history";
+import { axiosWithAuth } from "../utils/axiosWithAuth";
+import { useHistory } from 'react-router-dom'
+
+
 
 export const SET_TOKEN = "SET_TOKEN";
 export const TOKEN_AQUIRED = "TOKEN_AQUIRED";
@@ -12,17 +14,19 @@ export const NEW_USER = "NEW_USER";
 export const GET_STUFF = "GET_STUFF";
 export const ALL_STUFF = "ALL_STUFF";
 
+
 export const loginData = credential => dispatch => {
+  
   dispatch({ type: SET_TOKEN });
   axiosWithAuth()
-    .post("/users/login", credential)
+    .post("/api/users/login", credential)
     .then(res => {
       console.log(res);
-      window.localStorage.setItem("token", res.data.token);
-      window.localStorage.setItem("user_id", res.data.id);
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("user_id", res.data.id);
       dispatch({ type: TOKEN_AQUIRED });
       dispatch({ type: USER, payload: res.data });
-      history.push(`/user-page/${res.data.id}`);
+      History.push('/browse-rentals');
     })
     .catch(err => {
       console.error("You are getting an error of", err.response);
@@ -30,18 +34,24 @@ export const loginData = credential => dispatch => {
 };
 
 export const logout = () => dispatch => {
+  
   dispatch({ type: USER_LOGOUT });
-  history.push("/");
+  History.push("/");
   localStorage.clear("token");
 };
 
 export const registerUser = newUser => dispatch => {
+  
   dispatch({ type: NEW_USER });
   axiosWithAuth()
-    .post("/users/register", newUser)
+    .post("/api/users/register", newUser)
     .then(res => {
       console.log(res);
-      history.push("/");
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("user_id", res.data.id);
+      dispatch({ type: TOKEN_AQUIRED });
+      dispatch({ type: USER, payload: res.data });
+      History.push('/browse-rentals');
     })
     .catch(err => {
       console.error("You are getting an error of", err.response);
@@ -51,7 +61,7 @@ export const registerUser = newUser => dispatch => {
 export const getUser = (id) => dispatch => {
   dispatch({ type: GET_USER });
   axiosWithAuth()
-    .get(`/users/${id}/stuffs`)
+    .get(`/api/users/${id}/items`)
     .then(res => {
       console.log(res);
       dispatch({ type: USER_STUFF, payload: res.data });
@@ -65,7 +75,7 @@ export const getUser = (id) => dispatch => {
 export const getTech = () => dispatch => {
   dispatch({ type: GET_STUFF });
   axiosWithAuth()
-    .get("/stuffs")
+    .get("/api/items/")
     .then(res => {
       console.log(res)
       console.log("api data", res.data);
@@ -79,7 +89,7 @@ export const getTech = () => dispatch => {
 
 export const addNewItem = (id, item) => dispatch => {
   axiosWithAuth()
-    .post(`/users/${id}/stuffs`, item)
+    .post(`/api/users/${id}/items`, item) 
     .then(res => {
       console.log(res);
     })
@@ -89,12 +99,13 @@ export const addNewItem = (id, item) => dispatch => {
 };
 
 export const rent = (id, item_id, updaterent) => dispatch => {
+  
   axiosWithAuth()
-    .put(`/users/${id}/stuffs/${item_id}`, updaterent)
+    .put(`api/users/${id}/items/${item_id}`, updaterent)
     .then(res => {
       console.log("update rent:", res);
       getUser(id);
-      history.push(`/all-tech`);
+      History.push(`/browse-rentals`);
     })
     .catch(err => {
       console.log(err.response);

@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import history from './utils/history'
+import theme from "./theme/theme";
+import { createBrowserHistory } from "history";
 
 //Redux stuff
 import { Provider } from 'react-redux';
@@ -15,15 +16,21 @@ import logger from 'redux-logger';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 //reducer
-import rootReducer from './reducers'
+import { rootReducer } from './reducers';
+
+import { ThemeProvider } from "@material-ui/styles";
+
 
 const store = createStore(rootReducer, applyMiddleware(thunk, logger));
+const History = createBrowserHistory();
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={history}>
-      <App />
-    </Router>
+    <ThemeProvider theme={theme}>
+      <Router history={History}>
+        <App />
+      </Router>
+    </ThemeProvider>
   </Provider>,
   document.getElementById('root')
 );

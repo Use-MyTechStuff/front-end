@@ -1,7 +1,7 @@
 import { createMuiTheme } from '@material-ui/core/styles';
 
-const pink = "#ED1A74"
-const blue = "#33C6F4"
+const darkgray = "#A9A9A9"
+const teal = "#008080"
 
 export default createMuiTheme({
     palette : {
