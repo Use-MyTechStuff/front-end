@@ -29,7 +29,7 @@ const useStyles = makeStyles(theme => ({
 
 
 
-const MainPage = ({ addNewItem, getUser }) => {
+const Dashboard = ({ addNewItem, getUser, user_id }) => {
   const classes = useStyles();
   const [addItem, setAddItem] = useState(false);
   const [item, setItem] = useState({
@@ -41,7 +41,8 @@ const MainPage = ({ addNewItem, getUser }) => {
     condition: "",
     location: ""
   });
-  const user_id = localStorage.getItem("user_id");
+  
+  
 
   useEffect(() => {
     getUser(user_id);
@@ -150,9 +151,10 @@ const MainPage = ({ addNewItem, getUser }) => {
 
 const mapStateToProps = state => {
   return {
-    user: state.user,
+    user_id: state.user,
     error: state.error
+    
   };
 };
 
-export default connect(mapStateToProps, { getUser, addNewItem })(MainPage);
+export default connect(mapStateToProps, { getUser, addNewItem })(Dashboard);

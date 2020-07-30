@@ -2,15 +2,16 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { axiosWithAuth } from "../../utils/axiosWithAuth";
 import { useHistory } from 'react-router-dom'
+import { connect } from "react-redux";
 
 import UpdateItem from "./UpdateItem";
 
 import { Paper, Button } from "@material-ui/core";
 
 
-const EditItem = () => {
+const EditItem = ({user_id}) => {
     const {push} = useHistory();
-    const { id, user_id } = useParams();
+    const { id } = useParams();
     const [isEditing, setIsEditing] = useState(false);
     const [item, setItem] = useState({
         name: "",
@@ -24,10 +25,10 @@ const EditItem = () => {
 
     useEffect(() => {
         axiosWithAuth()
-            .get(`/users/${user_id}/items/${id}`)
+            .get(`/api/items/${id}`)
             .then(res => {
                 console.log(res);
-                setItem(res.data[0]);
+                setItem(res.data);
             })
             .catch(err => {
                 console.log(err.response);
@@ -36,7 +37,7 @@ const EditItem = () => {
 
     const HandleDelete = item_id => {
         axiosWithAuth()
-            .delete(`/users/${user_id}/items/${item_id}`)
+            .delete(`/api/items/${item_id}`)
             .then(res => {
                 console.log(res);
                 push(`/user-page/${user_id}`);
@@ -79,5 +80,10 @@ const EditItem = () => {
         </div>
     );
 };
-
-export default EditItem;
+const mapStateToProps = state => {
+    return {
+     user_id: state.user
+    };
+  };
+  
+  export default connect(mapStateToProps, {  })(EditItem);

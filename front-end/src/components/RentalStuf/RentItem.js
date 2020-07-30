@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { rent } from "../../actions";
 import { axiosWithAuth } from "../../utils/axiosWithAuth";
 
@@ -8,6 +8,7 @@ import { Paper, Button, Checkbox } from "@material-ui/core";
 
 
 const RentItem = ({ rent }) => {
+  const history = useHistory();
   const { id } = useParams();
   const [checked, setChecked] = useState(false);
   const [item, setItem] = useState({
@@ -22,10 +23,10 @@ const RentItem = ({ rent }) => {
 
   useEffect(() => {
     axiosWithAuth()
-      .get(`api/items/${id}`)
+      .get(`/api/items/${id}`)
       .then(res => {
         console.log(res);
-        setItem(res.data[0]);
+        setItem(res.data);
       })
       .catch(err => {
         console.log(err.response);
@@ -49,7 +50,7 @@ const RentItem = ({ rent }) => {
   console.log(item);
 
   const HandleRent = (user_id, id, item) => {
-    rent(user_id, id, item);
+    rent(user_id, id, item, history);
   };
 
   return (
@@ -72,7 +73,7 @@ const RentItem = ({ rent }) => {
         />
         <Button
           size="small"
-          color="primary"
+          color="secondary"
           onClick={() => HandleRent(item.user_id, item.id, item)}
         >
           Rent

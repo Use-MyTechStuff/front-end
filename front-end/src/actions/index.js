@@ -1,5 +1,5 @@
 import { axiosWithAuth } from "../utils/axiosWithAuth";
-import {History} from '../utils/History'
+
 
 
 
@@ -15,7 +15,7 @@ export const GET_STUFF = "GET_STUFF";
 export const ALL_STUFF = "ALL_STUFF";
 
 
-export const loginData = credential => dispatch => {
+export const loginData = (credential, history) => dispatch => {
   
   dispatch({ type: SET_TOKEN });
   axiosWithAuth()
@@ -23,10 +23,10 @@ export const loginData = credential => dispatch => {
     .then(res => {
       console.log(res);
       localStorage.setItem("token", res.data.token);
-      localStorage.setItem("user_id", res.data.id);
+      localStorage.setItem("user_id", res.data.user.id);
       dispatch({ type: TOKEN_AQUIRED });
-      dispatch({ type: USER, payload: res.data });
-      History.push('/browse-rentals');
+      dispatch({ type: USER, payload: res.data.user.id });
+      history.push(`/user-page/${res.data.user.id}`);
     })
     .catch(err => {
       console.error("You are getting an error of", err.response);
@@ -36,22 +36,18 @@ export const loginData = credential => dispatch => {
 export const logout = () => dispatch => {
   
   dispatch({ type: USER_LOGOUT });
-  History.push("/");
+  
   localStorage.clear("token");
 };
 
-export const registerUser = newUser => dispatch => {
+export const registerUser = (newUser, history) => dispatch => {
   
   dispatch({ type: NEW_USER });
   axiosWithAuth()
     .post("/api/users/register", newUser)
     .then(res => {
       console.log(res);
-      localStorage.setItem("token", res.data.token);
-      localStorage.setItem("user_id", res.data.id);
-      dispatch({ type: TOKEN_AQUIRED });
-      dispatch({ type: USER, payload: res.data });
-      History.push('/browse-rentals');
+      history.push('/browse-rentals');
     })
     .catch(err => {
       console.error("You are getting an error of", err.response);
@@ -98,14 +94,14 @@ export const addNewItem = (id, item) => dispatch => {
     })
 };
 
-export const rent = (id, item_id, updaterent) => dispatch => {
+export const rent = (id, item_id, updaterent, history) => dispatch => {
   
   axiosWithAuth()
-    .put(`api/users/${id}/items/${item_id}`, updaterent)
+    .put(`api/items/${item_id}`, updaterent)
     .then(res => {
       console.log("update rent:", res);
       getUser(id);
-      History.push(`/browse-rentals`);
+      history.push(`/browse-rentals`);
     })
     .catch(err => {
       console.log(err.response);

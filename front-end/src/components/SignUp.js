@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 //Link from react router
 import { Link as RouterLink, useHistory } from "react-router-dom";
 // all material UI style dependcies and images
-import Login from './Login'
 import { registerUser } from "../actions/"
 import {
   Typography,
@@ -48,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
 const SignUp = (props) => {
   //Allows to uses the styling from component styles directory
   const classes = useStyles();
-  const {push} = useHistory();
+  const history = useHistory();
 
   const [newUser, setNewUser] = useState({
     username: "",
@@ -80,7 +79,7 @@ const handleChange = e => {
       console.log(res);
       // dispatch({ type: TOKEN_AQUIRED });
       // dispatch({ type: USER, payload: res.data });
-      push('/');
+      history.push('/')
     })
     .catch(err => {
       console.error("You are getting an error of", err.response);

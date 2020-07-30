@@ -3,7 +3,7 @@ import {SET_TOKEN, TOKEN_AQUIRED, USER, GET_USER, ALL_STUFF, SET_ERROR, GET_STUF
 const initialState ={
     isLoading: false,
     auth: false,
-    user: {},
+    user:  localStorage.getItem('user_id'),
     userStuff: [],
     stuff: [],
     error: ''

@@ -15,7 +15,7 @@ import { Link, useHistory } from "react-router-dom";
 import * as yup from "yup";
 import { connect } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
-import { axiosWithAuth } from "../utils/axiosWithAuth";
+//import { axiosWithAuth } from "../utils/axiosWithAuth";
 
 
 
@@ -51,7 +51,7 @@ const logSchema = yup.object().shape({
 
 const Login = (props) => {
   const classes = useStyles();
-  const {push} = useHistory();
+  const history = useHistory();
 
   const [credential, setCredential] = useState({
     username: "",
@@ -100,30 +100,28 @@ const Login = (props) => {
   const changeHandler = (event) => {
     event.persist();
     validate(event);
-    let value =
-      event.target.type === "checkbox"
-        ? event.target.checked
-        : event.target.value;
+    
 
-    setCredential({ ...credential, [event.target.name]: value });
+    setCredential({ ...credential, [event.target.name]: event.target.value });
   };
 
   const Submit = (event) => {
     event.preventDefault();
-    //props.loginData(credential);
-    axiosWithAuth()
-    .post("/api/users/login", credential)
-    .then(res => {
-      console.log(res);
-      localStorage.setItem("token", res.data.token);
-      localStorage.setItem("user_id", res.data.user.id);
-      //dispatch({ type: TOKEN_AQUIRED });
-      //dispatch({ type: USER, payload: res.data });
-      push('/browse-rentals');
-    })
-    .catch(err => {
-      console.error("You are getting an error of", err.response);
-    });
+    props.loginData(credential, history);
+    // axiosWithAuth()
+    // .post("/api/users/login", credential)
+    // .then(res => {
+    //   console.log(res);
+    //   localStorage.setItem("token", res.data.token);
+    //   localStorage.setItem("user_id", JSON.stringify(res.data.id) );
+    //   //dispatch({ type: TOKEN_AQUIRED });
+    //   //dispatch({ type: USER, payload: res.data });
+    //   push(`/user-page/${res.data.id}`);
+    // })
+    // .catch(err => {
+    //   console.error("You are getting an error of", err.response);
+    // });
+  
   };
 
   return (

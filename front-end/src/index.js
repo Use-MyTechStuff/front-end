@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import theme from "./theme/theme";
-import { History } from './utils/History';
+
 
 //Redux stuff
 import { Provider } from 'react-redux';
@@ -27,7 +27,7 @@ const store = createStore(rootReducer, applyMiddleware(thunk, logger));
 ReactDOM.render(
   <Provider store={store}>
     <ThemeProvider theme={theme}>
-      <Router history={History}>
+      <Router>
         <App />
       </Router>
     </ThemeProvider>

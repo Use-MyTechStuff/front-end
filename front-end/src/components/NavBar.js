@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { NavLink, useParams, useHistory } from "react-router-dom";
+import { NavLink,  useHistory } from "react-router-dom";
 import { logout } from "../actions/";
 
 
@@ -42,11 +42,11 @@ const useStyles = makeStyles(theme => ({
 
   }));
 
-const NavBar = ({ logout, auth }) => {
+const NavBar = ({ logout,  user_id }) => {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
-    const { user_id } = useParams();
+    
     const {push} = useHistory();
   
     const handleMenu = event => {
@@ -120,8 +120,10 @@ const NavBar = ({ logout, auth }) => {
   };
   
   const mapStateToProps = state => {
+    console.log(state)
     return {
-      auth: state.auth
+      auth: state.auth,
+      user_id: state.user
     };
   };
   

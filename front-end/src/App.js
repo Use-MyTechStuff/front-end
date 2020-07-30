@@ -32,7 +32,7 @@ function App() {
         />
         <PrivateRoute 
           exact
-          path='/user-page/:user_id/items/:id'
+          path='/user-page/items/:id'
           component={EditItem}
         />
         <PrivateRoute

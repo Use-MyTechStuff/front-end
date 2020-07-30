@@ -33,7 +33,7 @@ const useStyles = makeStyles(theme => ({
 const UpdateItem = props => {
     const { push } = useHistory();
     const classes = useStyles();
-    const { id, user_id } = useParams();
+    const { id } = useParams();
     const [updateItem, setUpdateItem] = useState({
         name: "",
         daily_rate: "",
@@ -58,7 +58,7 @@ const UpdateItem = props => {
     const HandleChange = e => {
         e.persist();
         let value = e.target.value;
-        if (e.target.name === "daily_rate") {
+        if (e.target.name === "price") {
             value = parseInt(value, 10);
         }
         setUpdateItem({
@@ -70,12 +70,12 @@ const UpdateItem = props => {
     const HandleSubmit = e => {
         e.preventDefault();
         axiosWithAuth()
-            .put(`/users/${user_id}/items/${id}`, updateItem)
+            .put(`/api/items/${id}`, updateItem)
             .then(res => {
                 console.log('update res:', res);
                 props.setIsEditing(false)
-                props.getUser(user_id)
-                push(`/user-page/${user_id}`);
+                props.getUser(props.user_id)
+                push(`/user-page/${props.user_id}`);
             })
             .catch(err => {
                 console.log(err.response);
@@ -157,7 +157,8 @@ const UpdateItem = props => {
 
 const mapStateToProps = state => {
     return {
-        userStuff: state.userStuff
+        userStuff: state.userStuff,
+        user_id: state.user
     };
 };
 
