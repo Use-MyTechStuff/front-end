@@ -3,11 +3,35 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import theme from "./theme/index";
+
+
+//Redux stuff
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import logger from 'redux-logger';
+
+//React Router
+import { BrowserRouter as Router } from 'react-router-dom';
+
+//reducer
+import { rootReducer } from './reducers';
+
+import { ThemeProvider } from "@material-ui/styles";
+
+
+const store = createStore(rootReducer, applyMiddleware(thunk, logger));
+
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Provider store={store}>
+    <ThemeProvider theme={theme}>
+      <Router>
+        <App />
+      </Router>
+    </ThemeProvider>
+  </Provider>,
   document.getElementById('root')
 );
 
