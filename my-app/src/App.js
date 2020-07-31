@@ -1,26 +1,46 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import Contact from './components/Contact'
+import {Route, Switch} from 'react-router-dom';
+import PrivateRoute from "./utils/PrivateRoute";
+
+import NavBar from "./components/NavBar";
+import Login from "./components/Login";
+import SignUp from "./components/Signup.js";
+import Dashboard from "./components/Dashboard";
+import TechList from "./components/RentalStuf/TechList";
+import EditItem from "./components/RentalStuf/EditItem";
+import RentItem from "./components/RentalStuf/RentItem";
+
+
 
 function App() {
+  const token = localStorage.getItem('token')
   return (
     <div className="App">
-      {/* <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header> */}
-      <Contact/>
+    <NavBar token={token}/>
+      <Switch>
+        <Route exact path='/' component={Login}/>
+        <Route path='/signup' component={SignUp} />
+        <PrivateRoute 
+          exact path='/browse-rentals'
+          component={TechList}
+        />
+        <PrivateRoute 
+          exact
+          path='/user-page/:user_id'
+          component={Dashboard}
+        />
+        <PrivateRoute 
+          exact
+          path='/user-page/items/:id'
+          component={EditItem}
+        />
+        <PrivateRoute
+          exact
+          path='/browse-rentals/:id'
+          component={RentItem}
+        />
+      </Switch>
     </div>
   );
 }
