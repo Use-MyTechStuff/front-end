@@ -15,38 +15,18 @@ import {
   CircularProgress,
   FormHelperText,
 } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 
 
 
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-}));
+
 
 
 
 
 const SignUp = (props) => {
   //Allows to uses the styling from component styles directory
-  const classes = useStyles();
   const history = useHistory();
 
   const [newUser, setNewUser] = useState({

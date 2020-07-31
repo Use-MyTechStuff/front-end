@@ -20,7 +20,6 @@ const useStyles = makeStyles({
 });
 
 export default function UserItem({ tech }) {
-  const id = localStorage.getItem("user_id");
   const classes = useStyles();
 
   return (

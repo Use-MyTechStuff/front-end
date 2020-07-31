@@ -7,9 +7,9 @@ import NavBar from "./components/NavBar";
 import Login from "./components/Login";
 import SignUp from "./components/SignUp.js";
 import Dashboard from "./components/Dashboard";
-import TechList from "./components/RentalStuf/TechList";
-import EditItem from "./components/RentalStuf/EditItem";
-import RentItem from "./components/RentalStuf/RentItem";
+import TechList from "./components/rentalstuf/TechList";
+import EditItem from "./components/rentalstuf/EditItem";
+import RentItem from "./components/rentalstuf/RentItem";
 
 
 
