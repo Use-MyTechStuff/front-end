@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { getUser, addNewItem } from "../actions";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
-import UserTechList from "./RentalStuf/UserTechList";
+import UserTechList from "./rentalstuf/UserTechList";
 
 
 import {
